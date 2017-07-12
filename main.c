@@ -130,7 +130,7 @@ void read(const char *file, int code[], int operand[])
 	int pc = 1;
 	if ((fp = fopen(file, "r")) == NULL) {
 		puts("FILE OPEN ERROR");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	while ((fgets(buf, sizeof(buf), fp) != NULL)) {
 		p = buf;
@@ -144,7 +144,7 @@ void read(const char *file, int code[], int operand[])
 			}
 			if (i == OUT) {
 				puts("UNKNOWN OPCODE ERROR");
-				exit(1);
+				exit(EXIT_FAILURE);
 			}
 		}
                 for (i = 0; i < 7; i++) {
