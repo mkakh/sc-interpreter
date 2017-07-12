@@ -26,7 +26,7 @@ const char *opcode_str[] = {"LDC", "LLD", "LGD", "LLA", "LGA", "STL", "STG", "ST
 			    "DUP", "STF", "INP", "OUT"};
 const char *binaryop_str[] = {"ADD", "SUB", "MUL", "DIV", "MOD", "AND", "OR", "GT", "GE", "LT", "LE",
                             "EQ", "NOT_EQ"};
-const char *binaryop_str2[] = {"+", "-", "*", "/", "%", "&", "|", ">", ">=", "<", "<=", "=", "!="};
+const char *binaryop_str2[] = {"+", "-", "*", "/", "%", "&&", "||", ">", ">=", "<", "<=", "==", "!="};
 const char *unaryop_str[] = {"NOT", "UMINUS"};
 const char *unaryop_str2[] = {"!", "-"};
 const char *no_operand_str[] = {"IN", "OUT", "HLT", "STO", "MST", "DUP", "STF"};
@@ -108,14 +108,14 @@ int bop(int st1, int st2, int op)
 	        case MUL:     ret = st1 * st2;  break;
 	        case DIV:     ret = st1 / st2;  break;
 	        case MOD:     ret = st1 % st2;  break;
-	        case AND:     ret = st1 & st2;  break;
-	        case OR:      ret = st1 | st2;  break;
+	        case AND:     ret = st1 && st2; break;
+	        case OR:      ret = st1 || st2; break;
 	        case GT:      ret = st1 > st2;  break;
 	        case GE:      ret = st1 >= st2; break;
 	        case LT:      ret = st1 < st2;  break;
 	        case LE:      ret = st1 <= st2; break;
 	        case EQ:      ret = st1 == st2; break;
-	        case NOT_EQ:  ret = st1 != st2;  break;
+	        case NOT_EQ:  ret = st1 != st2; break;
 	        default:      puts("BOP ERROR"); exit(EXIT_FAILURE);
         }
         return ret;
