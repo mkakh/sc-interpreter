@@ -53,32 +53,32 @@ int main(int argc, char *argv[])
                 pc = pc+1;
 		/* 実行部 */
 		switch (op) {
-		case LDC: sp++; stack[sp] = a; break;
-		case LLD: sp++; stack[sp] = stack[base+a]; break;
-		case LGD: sp++; stack[sp] = stack[a]; break;
-		case LLA: sp++; stack[sp] = base+a; break;
-		case LGA: sp++; stack[sp] = a; break;
-		case STL: stack[base+a] = stack[sp]; sp--; break;
-		case STG: stack[a] = stack[sp]; sp--; break;
-		case STO: stack[stack[sp-1]]=stack[sp]; sp = sp-2; break;
-		case IND: stack[sp] = stack[stack[sp]+a]; break;
-		case UJP: pc = a; break;
-		case FJP: if(stack[sp] == 0) pc=a; sp--; break;
-		case ENT: sp = base + a; break;
-		case MST: stack[sp+1] = base; sp = sp + 2; break;
-		case CUP: stack[sp-a] = pc; base = sp-a-2; pc = stack[base]; break;
-		case RET: sp=base-a; pc=stack[base+2]; base=stack[base+1];break;
-                case BOP: sp--; stack[sp] = bop(stack[sp], stack[sp+1], a); break;
-                case UOP: stack[sp] = uop(stack[sp], a); break;
-		case HLT: break;
-		case ISP: sp = sp+a; break;
-		case DSP: sp = sp-a; break;
-		case IBS: base = base+a; break;
-		case DUP: sp++; stack[sp] = stack[sp-1]; break;
-		case STF: stack[stack[sp-1]]=stack[sp]; stack[sp-1] = stack[sp]; sp--; break;
-		case INP: sp++; scanf("%d", &stack[sp]); break;
-                case OUT: printf("%d\n", stack[sp]); break;
-		default: printf("%d: UNKNOWN OPCODE ERRROR\n", pc); exit(1);
+		        case LDC: sp++; stack[sp] = a; break;
+		        case LLD: sp++; stack[sp] = stack[base+a]; break;
+		        case LGD: sp++; stack[sp] = stack[a]; break;
+		        case LLA: sp++; stack[sp] = base+a; break;
+		        case LGA: sp++; stack[sp] = a; break;
+		        case STL: stack[base+a] = stack[sp]; sp--; break;
+		        case STG: stack[a] = stack[sp]; sp--; break;
+		        case STO: stack[stack[sp-1]]=stack[sp]; sp = sp-2; break;
+		        case IND: stack[sp] = stack[stack[sp]+a]; break;
+		        case UJP: pc = a; break;
+		        case FJP: if(stack[sp] == 0) pc=a; sp--; break;
+		        case ENT: sp = base + a; break;
+		        case MST: stack[sp+1] = base; sp = sp + 2; break;
+		        case CUP: stack[sp-a] = pc; base = sp-a-2; pc = stack[base]; break;
+		        case RET: sp=base-a; pc=stack[base+2]; base=stack[base+1];break;
+                        case BOP: sp--; stack[sp] = bop(stack[sp], stack[sp+1], a); break;
+                        case UOP: stack[sp] = uop(stack[sp], a); break;
+		        case HLT: break;
+		        case ISP: sp = sp+a; break;
+		        case DSP: sp = sp-a; break;
+		        case IBS: base = base+a; break;
+		        case DUP: sp++; stack[sp] = stack[sp-1]; break;
+		        case STF: stack[stack[sp-1]]=stack[sp]; stack[sp-1] = stack[sp]; sp--; break;
+		        case INP: sp++; scanf("%d", &stack[sp]); break;
+                        case OUT: printf("%d\n", stack[sp]); break;
+		        default: printf("%d: UNKNOWN OPCODE ERRROR\n", pc); exit(1);
 		}
 		op = code[pc];
 		a = operand[pc];
@@ -101,20 +101,20 @@ int bop(int st1, int st2, int op)
 {
         int ret;
         switch (op) {
-	case ADD:     ret = st1 + st2;  break;
-	case SUB:     ret = st1 - st2;  break;
-	case MUL:     ret = st1 * st2;  break;
-	case DIV:     ret = st1 / st2;  break;
-	case MOD:     ret = st1 % st2;  break;
-	case AND:     ret = st1 & st2;  break;
-	case OR:      ret = st1 | st2;  break;
-	case GT:      ret = st1 > st2;  break;
-	case GE:      ret = st1 >= st2; break;
-	case LT:      ret = st1 < st2;  break;
-	case LE:      ret = st1 <= st2; break;
-	case EQ:      ret = st1 == st2; break;
-	case NOT_EQ:  ret = st1 != st2;  break;
-	default:      puts("BOP ERROR");
+	        case ADD:     ret = st1 + st2;  break;
+	        case SUB:     ret = st1 - st2;  break;
+	        case MUL:     ret = st1 * st2;  break;
+	        case DIV:     ret = st1 / st2;  break;
+	        case MOD:     ret = st1 % st2;  break;
+	        case AND:     ret = st1 & st2;  break;
+	        case OR:      ret = st1 | st2;  break;
+	        case GT:      ret = st1 > st2;  break;
+	        case GE:      ret = st1 >= st2; break;
+	        case LT:      ret = st1 < st2;  break;
+	        case LE:      ret = st1 <= st2; break;
+	        case EQ:      ret = st1 == st2; break;
+	        case NOT_EQ:  ret = st1 != st2;  break;
+	        default:      puts("BOP ERROR");
         }
         return ret;
 }
