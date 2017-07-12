@@ -91,9 +91,9 @@ int uop(int st, int op)
 {
         int ret;
         switch(op) {
-	case NOT:     ret = !st; break;
-	case UMINUS:  ret = -st; break;
-	default:      puts("UOP ERROR");
+	        case NOT:     ret = !st; break;
+	        case UMINUS:  ret = -st; break;
+	        default:      puts("UOP ERROR");
         }
         return ret;
 }
