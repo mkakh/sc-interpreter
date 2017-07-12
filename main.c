@@ -29,7 +29,7 @@ const char *binaryop_str[] = {"ADD", "SUB", "MUL", "DIV", "MOD", "AND", "OR", "G
 const char *binaryop_str2[] = {"+", "-", "*", "/", "%", "&", "|", ">", ">=", "<", "<=", "=", "!="};
 const char *unaryop_str[] = {"NOT", "UMINUS"};
 const char *unaryop_str2[] = {"!", "-"};
-const char *no_operand_str[] = {"IN", "OUT", "HLT"};
+const char *no_operand_str[] = {"IN", "OUT", "HLT", "STO", "MST", "DUP", "STF"};
 
 
 int main(int argc, char *argv[])
@@ -43,6 +43,7 @@ int main(int argc, char *argv[])
 	int stack[STACK_SIZE];
 	int sp, base, pc, op, a;
 
+        /* ファイル読み込み */
 	read(argv[1], code, operand);
 
 	sp = base = pc = 1;
@@ -51,7 +52,7 @@ int main(int argc, char *argv[])
 
 	while (op != HLT) {
                 pc = pc+1;
-		/* 実行部 */
+		/* 実行 */
 		switch (op) {
 		        case LDC: sp++; stack[sp] = a; break;
 		        case LLD: sp++; stack[sp] = stack[base+a]; break;
@@ -78,13 +79,13 @@ int main(int argc, char *argv[])
 		        case STF: stack[stack[sp-1]]=stack[sp]; stack[sp-1] = stack[sp]; sp--; break;
 		        case INP: sp++; scanf("%d", &stack[sp]); break;
                         case OUT: printf("%d\n", stack[sp]); break;
-		        default: printf("%d: UNKNOWN OPCODE ERRROR\n", pc); exit(1);
+		        default: printf("%d: UNKNOWN OPCODE ERRROR\n", pc); exit(EXIT_FAILURE);
 		}
 		op = code[pc];
 		a = operand[pc];
 	}
 
-	return 0;
+	return EXIT_SUCCESS;
 }
 
 int uop(int st, int op)
@@ -93,10 +94,11 @@ int uop(int st, int op)
         switch(op) {
 	        case NOT:     ret = !st; break;
 	        case UMINUS:  ret = -st; break;
-	        default:      puts("UOP ERROR");
+	        default:      puts("UOP ERROR"); exit(EXIT_FAILURE);
         }
         return ret;
 }
+
 int bop(int st1, int st2, int op)
 {
         int ret;
@@ -114,7 +116,7 @@ int bop(int st1, int st2, int op)
 	        case LE:      ret = st1 <= st2; break;
 	        case EQ:      ret = st1 == st2; break;
 	        case NOT_EQ:  ret = st1 != st2;  break;
-	        default:      puts("BOP ERROR");
+	        default:      puts("BOP ERROR"); exit(EXIT_FAILURE);
         }
         return ret;
 }
@@ -145,7 +147,7 @@ void read(const char *file, int code[], int operand[])
 				exit(1);
 			}
 		}
-                for (i = 0; i < 3; i++) {
+                for (i = 0; i < 7; i++) {
                         if (!strncmp(p, no_operand_str[i], strlen(no_operand_str[i]))) {
                                 goto OPERAND_READING_END;
                         }
@@ -178,6 +180,7 @@ void read(const char *file, int code[], int operand[])
 				goto OPERAND_READING_END;
 			}
 		}
+                printf("%d: UNKNOWN OPERAND\n", pc);
 	OPERAND_READING_END: pc++;
 	}
 	fclose(fp);
