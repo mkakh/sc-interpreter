@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 		        case IBS: base = base+a; break;
 		        case DUP: sp++; stack[sp] = stack[sp-1]; break;
 		        case STF: stack[stack[sp-1]]=stack[sp]; stack[sp-1] = stack[sp]; sp--; break;
-		        case INP: sp++; scanf("%d", &stack[sp]); break;
+		        case INP: sp++; printf("> "); scanf("%d", &stack[sp]); break;
                         case OUT: printf("%d\n", stack[sp]); break;
 		        default: printf("%d: UNKNOWN OPCODE ERRROR\n", pc); exit(EXIT_FAILURE);
 		}
