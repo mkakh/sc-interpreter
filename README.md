@@ -10,4 +10,4 @@ Small C言語のインタプリタです．
 |:-:|:-:|:-:|:-:|
 |24|INP|input|sp++; printf("> "); scanf("%d", &stack[sp]);|
 |25|OUT|output|printf("%d\n", stack[sp]);|
-|26|OCH|output character| printf("%c", stack[sp]);|
+|26|OCH|output character| putchar(stack[sp]);|
