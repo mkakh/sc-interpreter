@@ -12,7 +12,7 @@ int uop(int, int);
 
 enum opcode {
 	LDC, LLD, LGD, LLA, LGA, STL, STG, STO, IND, UJP,
-	FJP, ENT, MST, CUP, RET, BOP, UOP, HLT, ISP, DSP, IBS, DUP, STF, INP, OUT
+	FJP, ENT, MST, CUP, RET, BOP, UOP, HLT, ISP, DSP, IBS, DUP, STF, INP, OUT, OCH
 };
 enum binaryop {
 	ADD, SUB, MUL, DIV, MOD, AND, OR, GT, GE, LT, LE, EQ, NOT_EQ
@@ -23,13 +23,13 @@ enum unaryop {
 
 const char *opcode_str[] = {"LDC", "LLD", "LGD", "LLA", "LGA", "STL", "STG", "STO", "IND",
 			    "UJP", "FJP", "ENT", "MST", "CUP", "RET", "BOP", "UOP", "HLT", "ISP", "DSP", "IBS",
-			    "DUP", "STF", "INP", "OUT"};
+			    "DUP", "STF", "INP", "OUT", "OCH"};
 const char *binaryop_str[] = {"ADD", "SUB", "MUL", "DIV", "MOD", "AND", "OR", "GT", "GE", "LT", "LE",
                             "EQ", "NOT_EQ"};
 const char *binaryop_str2[] = {"+", "-", "*", "/", "%", "&&", "||", ">", ">=", "<", "<=", "==", "!="};
 const char *unaryop_str[] = {"NOT", "UMINUS"};
 const char *unaryop_str2[] = {"!", "-"};
-const char *no_operand_str[] = {"IN", "OUT", "HLT", "STO", "MST", "DUP", "STF"};
+const char *no_operand_str[] = {"IN", "OUT", "OCH", "HLT", "STO", "MST", "DUP", "STF"};
 
 
 int main(int argc, char *argv[])
@@ -79,6 +79,7 @@ int main(int argc, char *argv[])
 		        case STF: stack[stack[sp-1]]=stack[sp]; stack[sp-1] = stack[sp]; sp--; break;
 		        case INP: sp++; printf("> "); scanf("%d", &stack[sp]); break;
                         case OUT: printf("%d\n", stack[sp]); break;
+			case OCH: printf("%c", stack[sp]); break;
 		        default: printf("%d: UNKNOWN OPCODE ERRROR\n", pc); exit(EXIT_FAILURE);
 		}
 		op = code[pc];
@@ -138,12 +139,12 @@ void read(const char *file, int code[], int operand[])
 		while (*p == ' ') { p++; }
 		if ('\n' == *p || '\0' == *p) continue;
 		if ('A' > *p && *p > 'Z') break;
-		for (i = LDC; i <= OUT; i++) {
+		for (i = LDC; i <= OCH; i++) {
 			if (!strncmp(p, opcode_str[i], strlen(opcode_str[i]))) {
 				code[pc] = i;
 				break;
 			}
-			if (i == OUT) {
+			if (i == OCH) {
 				puts("UNKNOWN OPCODE ERROR");
 				exit(EXIT_FAILURE);
 			}
