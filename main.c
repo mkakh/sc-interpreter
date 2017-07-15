@@ -136,6 +136,7 @@ void read(const char *file, int code[], int operand[])
 		p = buf;
 		/* オペコード読み取り */
 		while (*p == ' ') { p++; }
+		if ('\n' == *p || '\0' == *p) continue;
 		if ('A' > *p && *p > 'Z') break;
 		for (i = LDC; i <= OUT; i++) {
 			if (!strncmp(p, opcode_str[i], strlen(opcode_str[i]))) {
