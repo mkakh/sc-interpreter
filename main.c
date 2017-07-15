@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 		        case STF: stack[stack[sp-1]]=stack[sp]; stack[sp-1] = stack[sp]; sp--; break;
 		        case INP: sp++; printf("> "); scanf("%d", &stack[sp]); break;
                         case OUT: printf("%d\n", stack[sp]); break;
-			case OCH: printf("%c", stack[sp]); break;
+			case OCH: putchar(stack[sp]); break;
 		        default: printf("%d: UNKNOWN OPCODE ERRROR\n", pc); exit(EXIT_FAILURE);
 		}
 		op = code[pc];
