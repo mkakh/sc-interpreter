@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -eu
 SRCS='main.c'
 PROGRAM='sci'
